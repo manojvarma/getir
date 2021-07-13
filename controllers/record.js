@@ -5,6 +5,9 @@ const moment = require('moment');
 const createError = require('http-errors');
 const Models = require('./../models');
 
+function isUndefined(val) {
+    return val === undefined;
+}
 module.exports.fetchRecords = function(req, res, next) {
     let query = req.body || {};
     let { startDate, endDate, minCount, maxCount} = query;
@@ -14,11 +17,11 @@ module.exports.fetchRecords = function(req, res, next) {
     if (!moment(endDate, "YYYY-MM-DD").isValid()) {
         throw createError(400, `Invalid End Date '${endDate}'`);
     }
-    if (!Number.isInteger(minCount)) {
-        throw createError(400, `Min Count is not integer`);
+    if (isUndefined(minCount) || !Number.isInteger(minCount)) {
+        throw createError(400, `Min Count should be integer`);
     }
-    if (!Number.isInteger(maxCount)) {
-        throw createError(400, `Max Count is not integer`);
+    if (isUndefined(maxCount) || !Number.isInteger(maxCount)) {
+        throw createError(400, `Max Count should be integer`);
     }
     let matchCriteria = { 
         $and: [

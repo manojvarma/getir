@@ -54,7 +54,7 @@ describe('Records Controller', () => {
             maxCount: 3000
         });
         expect(res.statusCode).toBe(400);
-        expect(res.body.msg).toBe("Min Count is not integer");
+        expect(res.body.msg).toBe("Min Count should be integer");
     });
 
     it('should get invalid maxCount error', async () => {
@@ -65,7 +65,7 @@ describe('Records Controller', () => {
             maxCount: "3000"
         });
         expect(res.statusCode).toBe(400);
-        expect(res.body.msg).toBe("Max Count is not integer");
+        expect(res.body.msg).toBe("Max Count should be integer");
     });
 });
 
